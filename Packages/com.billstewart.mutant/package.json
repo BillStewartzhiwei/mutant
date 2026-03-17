@@ -1,7 +1,7 @@
 {
   "name": "com.billstewart.uiframework",
   "version": "1.0.0",
-  "displayName": "Bill UI Framework",
+  "displayName": "mutant core",
   "description": "A modular UI framework for Unity",
   "unity": "2021.3",
   "author": {
