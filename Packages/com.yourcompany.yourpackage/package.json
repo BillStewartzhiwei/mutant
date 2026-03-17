@@ -1,0 +1,30 @@
+{
+  "name": "com.yourcompany.yourpackage",
+  "version": "1.0.0",
+  "displayName": "Your Package Name",
+  "description": "A template Unity package with runtime, editor, and samples.",
+  "unity": "2021.3",
+  "unityRelease": "0f1",
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com",
+    "url": "https://your-website.com"
+  },
+  "keywords": [
+    "template",
+    "utility"
+  ],
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Basic Example",
+      "description": "A basic usage example demonstrating core features.",
+      "path": "Samples~/BasicExample"
+    },
+    {
+      "displayName": "Advanced Example",
+      "description": "An advanced example with more complex usage.",
+      "path": "Samples~/AdvancedExample"
+    }
+  ]
+}

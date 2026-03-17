@@ -1,0 +1,16 @@
+{
+    "name": "YourCompany.YourPackage.Samples.BasicExample",
+    "rootNamespace": "",
+    "references": [
+        "YourCompany.YourPackage.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
