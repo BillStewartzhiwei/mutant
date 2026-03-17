@@ -34,5 +34,3 @@ Import samples from the Package Manager window:
 ## License
 
 MIT License - see LICENSE.md for details.
-https://github.com/BillStewartzhiwei/mutant/tree/main/Packages/com.yourcompany.yourpackage
-https://github.com/BillStewartzhiwei/mutant.git?path=/Packages/
