@@ -1,0 +1,18 @@
+{
+  "name": "com.billstewart.uiframework",
+  "version": "1.0.0",
+  "displayName": "Bill UI Framework",
+  "description": "A modular UI framework for Unity",
+  "unity": "2021.3",
+  "author": {
+    "name": "Bill Stewart",
+    "email": "your@email.com"
+  },
+  "dependencies": {},
+  "keywords": [
+    "ui",
+    "framework",
+    "mvc",
+    "ugui"
+  ]
+}
