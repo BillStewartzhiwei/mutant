@@ -1,0 +1,10 @@
+{
+  "name": "com.billstewart.ui",
+  "version": "1.0.0",
+  "displayName": "Mutant UI",
+  "description": "UI module for Mutant framework",
+  "unity": "2021.3",
+  "dependencies": {
+    "com.billstewart.core": "1.0.0"
+  }
+}
