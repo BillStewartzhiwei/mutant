@@ -43,7 +43,7 @@ namespace Bill.Mutant.Core
         private List<ModuleInfo> ScanModules()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(a => a.GetTypes())
+                .SelectMany(GetLoadableTypes)
                 .Where(t => typeof(IModule).IsAssignableFrom(t)
                             && !t.IsAbstract
                             && t.GetCustomAttribute<ModuleAttribute>() != null)
@@ -54,5 +54,16 @@ namespace Bill.Mutant.Core
                 ))
                 .ToList();
         }
+        private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+{
+    try
+    {
+        return assembly.GetTypes();
+    }
+    catch (ReflectionTypeLoadException e)
+    {
+        return e.Types.Where(t => t != null);
+    }
+}
     }
 }

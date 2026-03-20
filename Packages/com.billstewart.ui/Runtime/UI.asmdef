@@ -1,0 +1,13 @@
+{
+  "name": "Bill.Mutant.UI",
+  "references": [
+    "Bill.Mutant.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": []
+}
