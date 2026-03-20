@@ -1,0 +1,11 @@
+{
+  "name": "com.billstewart.vr",
+  "version": "1.0.0",
+  "displayName": "Mutant VR",
+  "description": "VR module for Mutant framework",
+  "unity": "2021.3",
+  "dependencies": {
+    "com.billstewart.core": "1.0.0",
+    "com.billstewart.ui": "1.0.0"
+  }
+}
