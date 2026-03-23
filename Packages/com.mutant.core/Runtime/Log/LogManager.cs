@@ -62,7 +62,7 @@ namespace Bill.Mutant.Core
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"[Mutant][LogManager] Handler dispose failed: {e}");
+	                // Log($"[Mutant][LogManager] Handler dispose failed: {e}");
                 }
             }
 
@@ -154,7 +154,7 @@ namespace Bill.Mutant.Core
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"[Mutant][LogManager] Handler error: {e}");
+                    //Debug.LogError($"[Mutant][LogManager] Handler error: {e}");
                 }
             }
         }
