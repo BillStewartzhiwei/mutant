@@ -1,36 +1,53 @@
-# Your Package Name
+# Mutant Core Runtime
 
-A template Unity package with runtime, editor, and sample content.
+Mutant Core Runtime 是整个 Mutant 框架的运行时内核。
 
-## Installation
+它负责：
 
-### Via Git URL (recommended)
-1. Open **Window → Package Manager**
-2. Click **"+" → Add package from git URL**
-3. Enter: `https://github.com/yourname/com.yourcompany.yourpackage.git`
+- 框架启动
+- 模块生命周期
+- 模块依赖解析
+- 事件通信
+- 日志输出
+- 基础设计模式支撑
 
-### Via Local Path
-1. Open **Window → Package Manager**
-2. Click **"+" → Add package from disk**
-3. Navigate to this folder and select `package.json`
+它不负责：
 
-## Usage
+- UI 逻辑
+- VR 逻辑
+- 网络业务
+- 项目业务代码
 
-```csharp
-using YourCompany.YourPackage;
+---
 
-// Use the utility
-YourUtility.Log("Hello!");
+## 目录结构
 
-// Or add YourComponent to a GameObject
-```
-
-## Samples
-
-Import samples from the Package Manager window:
-- **Basic Example** – Demonstrates core features
-- **Advanced Example** – Shows more complex usage patterns
-
-## License
-
-MIT License - see LICENSE.md for details.
+```text
+Runtime/
+├── Core.asmdef
+├── README.md
+│
+├── Bootstrap/
+│   ├── ModuleBootstrap.cs
+│   └── ModuleDriver.cs
+│
+├── Event/
+│   └── EventBus.cs
+│
+├── Log/
+│   └── Logger.cs
+│
+├── Module/
+│   ├── IModule.cs
+│   ├── BaseModule.cs
+│   ├── ModuleAttribute.cs
+│   ├── RequireAttribute.cs
+│   ├── ModuleInfo.cs
+│   ├── ModuleDependencyResolver.cs
+│   └── ModuleManager.cs
+│
+├── Pattern/
+│   ├── Singleton.cs
+│   └── MonoSingleton.cs
+│
+└── Utility/

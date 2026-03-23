@@ -4,7 +4,13 @@ using System.Linq;
 
 namespace Bill.Mutant.Core
 {
-    internal static class ModuleDependencyResolver
+	/// <summary>
+	/// The ModuleDependencyResolver class is designed to resolve and order a list of modules based on their dependencies.
+	/// It ensures that for any module, all its dependencies are resolved and appear before it in the final ordered list.
+	/// This class uses a topological sort algorithm to achieve this, which is suitable for Directed Acyclic Graphs (DAGs).
+	/// If a circular dependency is detected, an exception is thrown indicating the presence of such a cycle.
+	/// </summary>
+	internal static class ModuleDependencyResolver
     {
         public static List<ModuleInfo> Resolve(List<ModuleInfo> modules)
         {
