@@ -37,7 +37,29 @@ namespace Bill.Mutant.Core
         public void Update(float dt)
         {
             if (!_initialized) return;
-            foreach (var m in _modules) m.Update(dt);
+
+            foreach (var m in _modules)
+            {
+                m.Update(dt);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (!_initialized) return;
+
+            for (int i = _modules.Count - 1; i >= 0; i--)
+            {
+                _modules[i].Dispose();
+            }
+
+            _modules.Clear();
+            _initialized = false;
+        }
+
+        public T GetModule<T>() where T : class, IModule
+        {
+            return _modules.OfType<T>().FirstOrDefault();
         }
 
         private List<ModuleInfo> ScanModules()
@@ -54,16 +76,17 @@ namespace Bill.Mutant.Core
                 ))
                 .ToList();
         }
+
         private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
-{
-    try
-    {
-        return assembly.GetTypes();
-    }
-    catch (ReflectionTypeLoadException e)
-    {
-        return e.Types.Where(t => t != null);
-    }
-}
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                return e.Types.Where(t => t != null);
+            }
+        }
     }
 }

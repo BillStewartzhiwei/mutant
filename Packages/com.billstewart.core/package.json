@@ -2,6 +2,9 @@
   "name": "com.billstewart.core",
   "version": "1.0.0",
   "displayName": "Mutant Core",
-  "description": "Core module for Mutant UPM package",
-  "unity": "2021.3"
+  "description": "Mutant runtime kernel providing module lifecycle, event system, and bootstrap.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Bill Stewart"
+  }
 }
