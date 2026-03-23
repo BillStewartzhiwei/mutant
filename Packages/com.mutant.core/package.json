@@ -1,0 +1,10 @@
+{
+  "name": "com.mutant.core",
+  "version": "1.0.0",
+  "displayName": "Mutant Core (Compat)",
+  "description": "Compatibility alias package for Mutant Core.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Bill Stewart"
+  }
+}
