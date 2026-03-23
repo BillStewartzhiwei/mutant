@@ -8,7 +8,7 @@ namespace Bill.Mutant.VR
         public float Distance = 10f;
         public LayerMask LayerMask;
 
-        void Update()
+        private void Update()
         {
             Ray ray = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(ray, out var hit, Distance, LayerMask))
