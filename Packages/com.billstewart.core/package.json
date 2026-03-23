@@ -1,5 +1,5 @@
 {
-  "name": "com.billstewart.core",
+  "name": "com.mutant.core",
   "version": "1.0.0",
   "displayName": "Mutant Core",
   "description": "Mutant runtime kernel providing module lifecycle, event system, and bootstrap.",
