@@ -7,15 +7,21 @@ namespace Bill.Mutant.Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
-            Logger.Log("Mutant Bootstrap Start");
+	        var logConfig = Resources.Load<LogConfig>("Mutant/LogConfig");
+	        if (logConfig == null)
+	        {
+		        logConfig = ScriptableObject.CreateInstance<LogConfig>();
+	        }
 
-            ModuleManager.Instance.Init();
+	        Logger.Init(logConfig);
+	        Logger.Info(LogCategory.Core, "Mutant Bootstrap Start", nameof(ModuleBootstrap));
 
-            var go = new GameObject("[Mutant.Driver]");
-            Object.DontDestroyOnLoad(go);
-            go.hideFlags = HideFlags.HideInHierarchy;
+	        ModuleManager.Instance.Init();
 
-            go.AddComponent<ModuleDriver>();
+	        var go = new GameObject("[Mutant.Driver]");
+	        Object.DontDestroyOnLoad(go);
+	        go.hideFlags = HideFlags.HideInHierarchy;
+	        go.AddComponent<ModuleDriver>();
         }
     }
 }
