@@ -112,3 +112,21 @@ public sealed class EventDemo : MonoBehaviour
 - `Subscribe` 返回 `IDisposable`，便于在 `OnDisable/OnDestroy` 中统一释放。
 - `SubscribeOnce` 用于一次性监听。
 - `EventBus.Clear<T>()` 可清空某类事件；`EventBus.Clear()` 可清空全部事件。
+
+
+## Utility 小工具
+
+Core 的 `Utility/` 目录新增了几组常用静态工具：
+
+- `StringUtility`
+  - `IsNullOrWhiteSpace(string)`：判空白字符串
+  - `NullIfWhiteSpace(string)`：空白字符串转 `null`
+  - `Truncate(string, int, string)`：按最大长度截断并追加后缀
+- `CollectionUtility`
+  - `IsNullOrEmpty(ICollection<T>)`：集合判空
+  - `SafeCount(ICollection<T>)`：安全获取集合数量（null 时返回 0）
+  - `TryGetValue(IReadOnlyDictionary<TKey, TValue>, TKey, out TValue)`：字典安全取值
+- `MathUtility`
+  - `Clamp01(float)`：限制到 `[0,1]`
+  - `Approximately(float, float, float)`：带 epsilon 的近似比较
+  - `Remap(float, float, float, float, float)`：区间映射
