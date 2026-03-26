@@ -88,7 +88,6 @@ namespace Bill.Mutant.Core
             {
                 Listeners.Remove(type);
             }
-
             return removed;
         }
 
