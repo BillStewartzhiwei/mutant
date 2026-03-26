@@ -6,29 +6,29 @@ namespace Bill.Mutant.Core
     {
         public void Handle(LogEntry entry)
         {
-// 	        
-// #if UNITY_EDITOR
-//             string prefix = FormatPrefix(entry);
-//             string content = $"{prefix}{entry.Message}";
-//
-//             switch (entry.Level)
-//             {
-//                 case LogLevel.Trace:
-//                 case LogLevel.Debug:
-//                 case LogLevel.Info:
-//                     Debug.Log(content);
-//                     break;
-//
-//                 case LogLevel.Warning:
-//                     Debug.LogWarning(content);
-//                     break;
-//
-//                 case LogLevel.Error:
-//                 case LogLevel.Fatal:
-//                     Debug.LogError(content);
-//                     break;
-//             }
-// #endif
+	        
+#if UNITY_EDITOR
+            string prefix = FormatPrefix(entry);
+            string content = $"{prefix}{entry.Message}";
+
+            switch (entry.Level)
+            {
+                case LogLevel.Trace:
+                case LogLevel.Debug:
+                case LogLevel.Info:
+                    Debug.Log(content);
+                    break;
+
+                case LogLevel.Warning:
+                    Debug.LogWarning(content);
+                    break;
+
+                case LogLevel.Error:
+                case LogLevel.Fatal:
+                    Debug.LogError(content);
+                    break;
+            }
+#endif
 
         }
 
