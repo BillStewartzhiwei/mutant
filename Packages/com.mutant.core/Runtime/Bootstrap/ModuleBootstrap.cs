@@ -15,7 +15,6 @@ namespace Bill.Mutant.Core
 
 			Logger.Init(logConfig);
 			UnityLogBridge.Install();
-
 			Logger.Info(LogCategory.Core, "Mutant Bootstrap Start", nameof(ModuleBootstrap));
 
 			ModuleManager.Instance.Init();
