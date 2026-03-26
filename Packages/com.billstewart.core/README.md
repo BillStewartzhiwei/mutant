@@ -32,6 +32,7 @@ Runtime/
 │   └── ModuleDriver.cs
 │
 ├── Event/
+│   ├── IEvent.cs
 │   └── EventBus.cs
 │
 ├── Log/
@@ -51,3 +52,63 @@ Runtime/
 │   └── MonoSingleton.cs
 │
 └── Utility/
+```
+
+---
+
+## 事件系统使用示例
+
+```csharp
+using Bill.Mutant.Core;
+using UnityEngine;
+
+public readonly struct PlayerDamagedEvent : IEvent
+{
+    public readonly int CurrentHp;
+
+    public PlayerDamagedEvent(int currentHp)
+    {
+        CurrentHp = currentHp;
+    }
+}
+
+public sealed class EventDemo : MonoBehaviour
+{
+    private System.IDisposable _subscription;
+
+    private void OnEnable()
+    {
+        // priority 越大越早执行
+        _subscription = EventBus.Subscribe<PlayerDamagedEvent>(OnPlayerDamaged, priority: 100);
+
+        // 只触发一次
+        EventBus.SubscribeOnce<PlayerDamagedEvent>(evt =>
+        {
+            Debug.Log($"[Once] first damage received, hp: {evt.CurrentHp}");
+        });
+    }
+
+    private void OnDisable()
+    {
+        // 推荐：在生命周期结束时释放订阅
+        _subscription?.Dispose();
+    }
+
+    public void SimulateDamage(int hp)
+    {
+        EventBus.Publish(new PlayerDamagedEvent(hp));
+    }
+
+    private void OnPlayerDamaged(PlayerDamagedEvent evt)
+    {
+        Debug.Log($"Player hp changed: {evt.CurrentHp}");
+    }
+}
+```
+
+说明：
+
+- 事件类型必须实现 `IEvent`。
+- `Subscribe` 返回 `IDisposable`，便于在 `OnDisable/OnDestroy` 中统一释放。
+- `SubscribeOnce` 用于一次性监听。
+- `EventBus.Clear<T>()` 可清空某类事件；`EventBus.Clear()` 可清空全部事件。
