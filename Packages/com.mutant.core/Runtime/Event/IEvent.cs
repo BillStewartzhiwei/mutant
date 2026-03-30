@@ -1,7 +1,9 @@
-﻿namespace Mutant.Core
+namespace Bill.Mutant.Core
 {
-	public interface IEvent
-	{
-		
-	}
+    /// <summary>
+    /// 标记接口：所有事件类型都应实现该接口。
+    /// </summary>
+    public interface IEvent
+    {
+    }
 }
