@@ -1,0 +1,17 @@
+{
+  "name": "com.mutant.core",
+  "version": "0.2.0",
+  "displayName": "Mutant Core",
+  "description": "Core runtime, bootstrap, module system, and event bus for Mutant.",
+  "unity": "2022.3",
+  "author": {
+    "name": "Bill Stewart"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Minimal bootstrap, module registration, and EventBus example.",
+      "path": "Samples~/Basic Usage"
+    }
+  ]
+}
