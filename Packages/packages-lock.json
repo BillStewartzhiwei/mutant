@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.mutant.core": {
-      "version": "file:com.mutant.core",
+      "version": "file:Packages/com.mutant.core",
       "depth": 0,
-      "source": "embedded",
+      "source": "local",
       "dependencies": {}
     },
     "com.unity.collab-proxy": {
