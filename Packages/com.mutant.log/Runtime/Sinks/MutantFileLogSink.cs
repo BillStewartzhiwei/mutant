@@ -13,6 +13,7 @@ namespace Mutant.Log.Sinks
         private readonly bool _flushAfterEachWrite;
 
         public string SinkDisplayName => "File";
+        public string AbsoluteFolderPath { get; }
         public string AbsoluteFilePath { get; }
 
         public MutantFileLogSink(
@@ -26,14 +27,14 @@ namespace Mutant.Log.Sinks
             string sanitizedFolderName = string.IsNullOrWhiteSpace(outputFolderName) ? "MutantLogs" : outputFolderName;
             string sanitizedFilePrefix = string.IsNullOrWhiteSpace(fileNamePrefix) ? "mutant-log" : fileNamePrefix;
 
-            string folderPath = Path.Combine(Application.persistentDataPath, sanitizedFolderName);
-            Directory.CreateDirectory(folderPath);
+            AbsoluteFolderPath = Path.Combine(Application.persistentDataPath, sanitizedFolderName);
+            Directory.CreateDirectory(AbsoluteFolderPath);
 
             string fileName = appendDateToFileName
                 ? $"{SanitizeFileSegment(sanitizedFilePrefix)}-{DateTime.UtcNow:yyyyMMdd-HHmmss}.log"
                 : $"{SanitizeFileSegment(sanitizedFilePrefix)}.log";
 
-            AbsoluteFilePath = Path.Combine(folderPath, fileName);
+            AbsoluteFilePath = Path.Combine(AbsoluteFolderPath, fileName);
 
             FileStream fileStream = new FileStream(
                 AbsoluteFilePath,
