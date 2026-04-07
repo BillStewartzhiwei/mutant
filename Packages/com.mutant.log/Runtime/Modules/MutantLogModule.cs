@@ -79,24 +79,37 @@ namespace Mutant.Log.Modules
 
         protected override void OnDispose()
         {
-            if (ActiveService != null)
-            {
-                ActiveService.Write(MutantLogSeverity.Info, "Log", "MutantLogModule disposed.");
-                ActiveService.Flush();
-                ActiveService.Dispose();
-                ActiveService = null;
-            }
+           	string exportedFolderPath = _fileSinkInstance != null ? _fileSinkInstance.AbsoluteFolderPath : null;
+    		string exportedFilePath = _fileSinkInstance != null ? _fileSinkInstance.AbsoluteFilePath : null;
 
-            _memorySinkInstance = null;
-            _consoleSinkInstance = null;
-            _fileSinkInstance = null;
+    		if (ActiveService != null)
+    		{
+        		ActiveService.Write(MutantLogSeverity.Info, "Log", "MutantLogModule disposed.");
+        		ActiveService.Flush();
+        		ActiveService.Dispose();
+        		ActiveService = null;
+    		}
 
-            if (_ownsFallbackSettingsAsset && _runtimeSettingsAsset != null)
-            {
-                UnityEngine.Object.Destroy(_runtimeSettingsAsset);
-                _runtimeSettingsAsset = null;
-                _ownsFallbackSettingsAsset = false;
-            }
+    		if (!string.IsNullOrEmpty(exportedFolderPath))
+    		{
+        		Debug.Log("[MutantLogModule] Log export folder: " + exportedFolderPath);
+    		}
+
+    		if (!string.IsNullOrEmpty(exportedFilePath))
+    		{
+        		Debug.Log("[MutantLogModule] Log export file: " + exportedFilePath);
+    		}
+
+    		_memorySinkInstance = null;
+    		_consoleSinkInstance = null;
+    		_fileSinkInstance = null;
+
+    		if (_ownsFallbackSettingsAsset && _runtimeSettingsAsset != null)
+    		{
+        		UnityEngine.Object.Destroy(_runtimeSettingsAsset);
+        		_runtimeSettingsAsset = null;
+        		_ownsFallbackSettingsAsset = false;
+    		}
         }
     }
 }
