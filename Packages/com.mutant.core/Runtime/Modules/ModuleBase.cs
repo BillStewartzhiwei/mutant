@@ -1,34 +1,48 @@
-﻿namespace Mutant.Core.Modules
+﻿using System;
+using System.Collections.Generic;
+
+namespace Mutant.Core
 {
-	public abstract class ModuleBase : IModule
+	/// <summary>
+	/// 模块基类。
+	/// </summary>
+	public abstract class ModuleBase : IMutantModule
 	{
-		public virtual string Name => GetType().Name;
-		public virtual int Priority => 0;
-		public bool IsInitialized { get; private set; }
+		public abstract string ModuleId { get; }
 
-		public void Init()
+		public virtual MutantBootPhase BootPhase
 		{
-			if (IsInitialized)
-				return;
-
-			OnInit();
-			IsInitialized = true;
+			get { return MutantBootPhase.Infrastructure; }
 		}
 
-		public void Dispose()
+		public virtual int Order
 		{
-			if (!IsInitialized)
-				return;
-
-			OnDispose();
-			IsInitialized = false;
+			get { return 0; }
 		}
 
-		public virtual void Update() { }
-		public virtual void LateUpdate() { }
-		public virtual void FixedUpdate() { }
+		public virtual IReadOnlyList<string> Dependencies
+		{
+			get { return Array.Empty<string>(); }
+		}
 
-		protected virtual void OnInit() { }
-		protected virtual void OnDispose() { }
+		public virtual void OnRegister()
+		{
+		}
+
+		public virtual void OnInit()
+		{
+		}
+
+		public virtual void OnStart()
+		{
+		}
+
+		public virtual void OnStop()
+		{
+		}
+
+		public virtual void OnDispose()
+		{
+		}
 	}
 }
