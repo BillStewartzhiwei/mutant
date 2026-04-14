@@ -3,7 +3,7 @@
   "displayName": "Mutant VR",
   "version": "0.2.0",
   "unity": "2022.3",
-  "description": "Conflict-safe first runnable skeleton for Mutant VR with a Core integration example.",
+  "description": "Conflict-safe runnable VR runtime package for Mutant with standalone host and Core bridge friendly structure.",
   "keywords": [
     "mutant",
     "vr",

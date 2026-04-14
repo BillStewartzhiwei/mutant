@@ -1,6 +1,7 @@
 ﻿using Mutant.VR.Config;
 using Mutant.VR.Contracts;
 using Mutant.VR.Core;
+using Mutant.VR.Diagnostics;
 using Mutant.VR.Rig;
 using UnityEngine;
 
@@ -17,76 +18,65 @@ namespace Mutant.VR.Bootstrap
         [SerializeField] private MonoBehaviour _platformAdapterBehaviour;
 
         private MutantVrContext _runtimeContext;
-        private MutantVrModule _runtimeModule;
+        private MutantVrRuntime _runtime;
 
         public MutantVrContext RuntimeContext => _runtimeContext;
-        public MutantVrModule RuntimeModule => _runtimeModule;
+        public MutantVrRuntime Runtime => _runtime;
+        public MutantVrRuntime RuntimeModule => _runtime;
 
-        private void Awake()
+        [ContextMenu("Mutant/VR/Rebuild Runtime")]
+        public void RebuildRuntime()
         {
-            BuildRuntime();
-
-            bool shouldAutoInstall = _settings == null || _settings.AutoInstallOnAwake;
-            if (shouldAutoInstall)
-            {
-                InstallRuntime();
-            }
-        }
-
-        private void Update()
-        {
-            bool shouldAutoTick = _settings == null || _settings.AutoTickInUpdate;
-            if (!shouldAutoTick)
-            {
-                return;
-            }
-
-            _runtimeModule?.Tick(Time.deltaTime);
-        }
-
-        private void OnDestroy()
-        {
-            bool shouldAutoShutdown = _settings == null || _settings.AutoShutdownOnDestroy;
-            if (shouldAutoShutdown)
-            {
-                _runtimeModule?.Shutdown();
-            }
+            _runtimeContext = BuildRuntimeContext();
+            _runtime = new MutantVrRuntime(_runtimeContext);
         }
 
         [ContextMenu("Mutant/VR/Install Runtime")]
         public void InstallRuntime()
         {
-            if (_runtimeModule == null)
+            if (_runtime == null)
             {
-                BuildRuntime();
+                RebuildRuntime();
             }
 
-            _runtimeModule?.Install();
+            _runtime.Install();
         }
 
         [ContextMenu("Mutant/VR/Tick Runtime Once")]
         public void TickRuntimeOnce()
         {
-            _runtimeModule?.Tick(Time.deltaTime);
+            if (_runtime == null)
+            {
+                RebuildRuntime();
+            }
+
+            _runtime.Tick(Time.deltaTime);
         }
 
         [ContextMenu("Mutant/VR/Shutdown Runtime")]
         public void ShutdownRuntime()
         {
-            _runtimeModule?.Shutdown();
+            _runtime?.Shutdown();
         }
 
-        private void BuildRuntime()
+        public MutantVrContext BuildRuntimeContext()
         {
             IMutantVrPlatformAdapter adapter = ResolvePlatformAdapter();
             MutantVrRigReferences rigReferences = _rigRoot != null
                 ? _rigRoot.BuildRigReferences()
                 : new MutantVrRigReferences();
 
-            _runtimeContext = new MutantVrContext();
-            _runtimeContext.Configure(_settings, rigReferences, adapter);
+            var diagnostics = new MutantVrUnityDiagnostics(_settings);
+            var context = new MutantVrContext();
+            context.Configure(_settings, rigReferences, adapter, diagnostics);
+            return context;
+        }
 
-            _runtimeModule = new MutantVrModule(_runtimeContext);
+        public MutantVrRuntime BuildRuntime()
+        {
+            _runtimeContext = BuildRuntimeContext();
+            _runtime = new MutantVrRuntime(_runtimeContext);
+            return _runtime;
         }
 
         private IMutantVrPlatformAdapter ResolvePlatformAdapter()

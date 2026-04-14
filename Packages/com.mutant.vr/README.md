@@ -1,39 +1,71 @@
 ﻿# com.mutant.vr
 
-一版可运行的 Mutant VR 骨架包，重点处理两件事：
+这一版是按你当前包结构做的小步重构版，不推翻现有设计，重点解决一件事：
 
-1. 避开容易和 Unity / XR / 引擎 API 冲突的命名
-2. 给出一个可以接入 Mutant Core 生命周期的最小示例
+**把“场景装配”和“生命周期驱动”拆开。**
 
-## 这版做了什么
+## 重构后的职责
 
-- 不再使用高冲突命名段作为核心运行时代码入口：
-  - `Input` -> `Controls`
-  - `Ray` -> `Pointers`
-- 统一用 `UnityEngine.Ray` 显式类型名
-- 提供：
-  - `MutantVrModule`
-  - `MutantVrInstaller`
-  - `MutantVrContext`
-  - `MutantVrVrifPlatformAdapter`
-  - `MutantVrCoreInstallExample`
+- `Bootstrap/MutantVrInstaller`
+  - 只负责收集场景引用、构建 RuntimeContext、构建 Runtime
+  - 不再默认用 `Awake / Update / OnDestroy` 自己驱动生命周期
 
-## 当前运行方式
+- `Bootstrap/MutantVrStandaloneHost`
+  - 仅用于独立场景 / Demo 模式
+  - 用 MonoBehaviour 驱动 `Install / Tick / Shutdown`
 
-- 场景里放一个空物体
-- 挂：
-  - `MutantVrInstaller`
-  - `MutantVrVrifPlatformAdapter`
-- 有 `MutantVrRigRoot` 就拖进去
-- 没有 Rig 时，Head 会优先回退到 `Camera.main`
+- `Core/MutantVrRuntime`
+  - 真正的 VR 运行时内核
+  - 管理 `Install / Tick / Shutdown`
+  - 驱动 `IMutantVrPlatformAdapter`
 
-## Core 接入示例
+- `Core/MutantVrContext`
+  - 保存 Settings / RigReferences / PlatformAdapter / Diagnostics / ServiceRegistry / State
 
-`Runtime/CoreBridge/MutantVrCoreInstallExample.cs`
+- `Contracts/IMutantVrPlatformAdapter`
+  - 平台适配抽象，不绑定某个具体 SDK
 
-这个脚本不依赖你当前 Core 的具体 API，只负责给你一个最小接线点：
-- Core 启动时调用 `InstallFromCore()`
-- Core Tick 时调用 `TickFromCore(deltaTime)`
-- Core 结束时调用 `ShutdownFromCore()`
+- `Rig/*`
+  - Rig 引用收集
 
-你可以把它接到你现有的启动编排里。
+- `Diagnostics/*`
+  - 日志与诊断出口抽象
+
+## 推荐运行模式
+
+### 1. Standalone / Demo 模式
+场景里挂：
+
+- `MutantVrInstaller`
+- `MutantVrStandaloneHost`
+- 你的某个 `IMutantVrPlatformAdapter` 实现
+
+### 2. Mutant Core 模式
+由外部 Core 宿主统一驱动：
+
+- `Install`
+- `Tick(deltaTime)`
+- `Shutdown`
+
+这时不要再挂 `MutantVrStandaloneHost`。
+
+## 迁移说明
+
+### 删除旧文件
+- `Runtime/Bootstrap/MutantVrModule.cs`
+
+### 新文件替代
+- `Runtime/Core/MutantVrRuntime.cs`
+
+### CoreBridge 示例
+建议从：
+- `Runtime/CoreBridge/MutantVrCoreInstallExample.cs`
+
+迁到：
+- `Samples~/CoreBridge/MutantVrCoreInstallExample.cs`
+
+## 设计目标
+
+- 保留 `Installer + Context + Adapter + Rig` 这条主线
+- 不让主包强依赖 `com.mutant.core`
+- 让 `com.mutant.vr` 既能独立跑 Demo，也能挂到 Mutant Core 下面

@@ -1,7 +1,7 @@
 ﻿using Mutant.VR.Config;
 using Mutant.VR.Contracts;
+using Mutant.VR.Diagnostics;
 using Mutant.VR.Rig;
-using UnityEngine;
 
 namespace Mutant.VR.Core
 {
@@ -10,17 +10,20 @@ namespace Mutant.VR.Core
         public MutantVrSettings Settings { get; private set; }
         public MutantVrRigReferences RigReferences { get; private set; } = new MutantVrRigReferences();
         public IMutantVrPlatformAdapter PlatformAdapter { get; private set; }
+        public IMutantVrDiagnostics Diagnostics { get; private set; }
         public MutantVrServiceRegistry ServiceRegistry { get; } = new MutantVrServiceRegistry();
         public MutantVrLifecycleState State { get; private set; } = MutantVrLifecycleState.None;
 
         public void Configure(
             MutantVrSettings settings,
             MutantVrRigReferences rigReferences,
-            IMutantVrPlatformAdapter platformAdapter)
+            IMutantVrPlatformAdapter platformAdapter,
+            IMutantVrDiagnostics diagnostics)
         {
             Settings = settings;
             RigReferences = rigReferences != null ? rigReferences.CreateCopy() : new MutantVrRigReferences();
             PlatformAdapter = platformAdapter;
+            Diagnostics = diagnostics;
             State = MutantVrLifecycleState.Configured;
         }
 
@@ -48,20 +51,17 @@ namespace Mutant.VR.Core
 
         public void LogVerbose(string message)
         {
-            if (Settings != null && Settings.EnableVerboseLogging)
-            {
-                Debug.Log($"[MutantVr] {message}");
-            }
+            Diagnostics?.LogVerbose(message);
         }
 
         public void LogWarning(string message)
         {
-            Debug.LogWarning($"[MutantVr] {message}");
+            Diagnostics?.LogWarning(message);
         }
 
         public void LogError(string message)
         {
-            Debug.LogError($"[MutantVr] {message}");
+            Diagnostics?.LogError(message);
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿{
-  "name": "com.mutant.vr",
-  "rootNamespace": "Mutant.VR",
-  "references": [],
+{
+  "name": "com.mutant.vr.corebridge",
+  "rootNamespace": "Mutant.VR.CoreBridge",
+  "references": [
+    "Mutant.Core",
+    "com.mutant.vr"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
