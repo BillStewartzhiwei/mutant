@@ -86,6 +86,7 @@ namespace Mutant.Core.Tests.PlayMode
             Assert.That(hasInitAll, Is.True, "Recorder should include module init cycle.");
             Assert.That(hasDisposeAll, Is.True, "Recorder should include module dispose cycle.");
         }
+
         private sealed class TrackingModule : IModule
         {
             public int Priority => 0;

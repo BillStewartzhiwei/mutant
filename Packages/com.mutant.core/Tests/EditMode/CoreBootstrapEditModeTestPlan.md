@@ -22,9 +22,8 @@
 
 ## 子模块调整项（建议检查）
 
-1. `Assets/com.mutant.core/package.json` 与 `Packages/com.mutant.core/package.json` 需要保持版本、描述、作者字段一致。
-2. 若未来将 `Tests` 目录同步到 `Packages/com.mutant.core`，需确保 asmdef 的 `includePlatforms/excludePlatforms` 在 UPM 场景下仍可正确执行。
-3. 发布前建议在 CHANGELOG 记录此防回归测试的覆盖范围，以便子模块升级时验证。
+1. `Packages/com.mutant.core/package.json` 升级时，应同步检查 README / CHANGELOG / asmdef 兼容性。
+2. 发布前建议在 CHANGELOG 记录此防回归测试的覆盖范围，以便子模块升级时验证。
 
 ## Recorder 对齐项（参考 PLUME Recorder 方案）
 

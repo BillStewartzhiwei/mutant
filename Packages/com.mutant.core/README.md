@@ -68,16 +68,16 @@ public class DemoEntry : MonoBehaviour
 
 ## 防回归测试建议
 
-- PlayMode 自动化用例：`Assets/com.mutant.core/Tests/PlayMode/CoreBootstrapPlayModeTests.cs`
+- PlayMode 自动化用例：`Packages/com.mutant.core/Tests/PlayMode/CoreBootstrapPlayModeTests.cs`
   - 覆盖“重复 `CoreBootstrap` 实例被销毁时，不应触发模块 `DisposeAll()`”。
   - 覆盖“owner 实例销毁时，仅触发一次模块释放”。
-- EditMode 测试规划：`Assets/com.mutant.core/Tests/EditMode/CoreBootstrapEditModeTestPlan.md`
+- EditMode 测试规划：`Packages/com.mutant.core/Tests/EditMode/CoreBootstrapEditModeTestPlan.md`
   - 用于记录补充用例和手工/自动化迁移建议。
 
 ## 子模块调整项
 
-- 保持 `Assets/com.mutant.core/package.json` 与 `Packages/com.mutant.core/package.json` 同步。
-- 若把 Tests 同步到 `Packages/com.mutant.core`，请复核 asmdef 的平台过滤设置。
+- 包升级后请同步检查 `package.json`、README、CHANGELOG 与 asmdef 兼容性。
+- 若同步 Tests，请复核 asmdef 的平台过滤设置。
 
 ## CoreRecorder（参考 PLUME Recorder 思路）
 
